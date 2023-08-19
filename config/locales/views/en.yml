@@ -1,22 +1,15 @@
 en:
   views:
-    common:
-      show: Details
-      edit: Edit
-      delete: Delete
-      new: Create
-      back_to_books: Back to books
+    actions:
+      show: "Details of this %{model}"
+      edit: "Update this %{model}"
+      delete: "Delete this %{model}"
+      new: "Add %{model}"
+      back_to_list: "Back to %{model} list"
   books:
     index:
       title: Book List
     new:
-      title: New Book
+      title: Adding Book
     edit:
-      title: Editing Book
-      back_to_details: Back to details
-    create:
-      success: Book was successfully created.
-    update:
-      success: Book was successfully updated.
-    destroy:
-      success: Book was successfully deleted.
+      title: Updating Book

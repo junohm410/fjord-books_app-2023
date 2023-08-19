@@ -7,6 +7,14 @@ en:
         restrict_dependent_destroy:
           has_one: Cannot delete record because a dependent %{record} exists
           has_many: Cannot delete record because dependent %{record} exist
+  controllers:
+    actions:
+      create:
+        success: "%{model} was successfully added."
+      update:
+        success: "%{model} was successfully updated."
+      destroy:
+        success: "%{model} was successfully deleted."
   date:
     abbr_day_names:
     - Sun

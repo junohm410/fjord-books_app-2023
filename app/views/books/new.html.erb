@@ -6,6 +6,6 @@
 
 <div>
   <nav class="page-nav">
-    <%= link_to t('views.common.back_to_books'), books_path %>
+    <%= link_to t('views.actions.back_to_list', model: Book.model_name.human), books_path %>
   </nav>
 </div>
