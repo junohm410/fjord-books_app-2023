@@ -14,3 +14,5 @@ en:
     edit:
       title: Editing Book
       back_to_details: Back to details
+    create:
+      success: Book was successfully created.

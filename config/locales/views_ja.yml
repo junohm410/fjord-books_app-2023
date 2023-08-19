@@ -14,3 +14,9 @@ ja:
     edit:
       title: 本の編集
       back_to_details: 詳細へ戻る
+    create:
+      success: 本が追加されました
+    update:
+      success: 本が編集されました
+    destroy:
+      success: 本が削除されました
