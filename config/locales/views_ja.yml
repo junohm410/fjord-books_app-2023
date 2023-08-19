@@ -1,4 +1,11 @@
 ja:
+  views:
+    common:
+      show: 詳細
+      edit: 編集
+      delete: 削除
+      new: 追加
+      back_to_books: 一覧に戻る
   books:
     index:
       title: 書籍一覧
@@ -6,3 +13,4 @@ ja:
       title: 本の追加
     edit:
       title: 本の編集
+      back_to_details: 詳細へ戻る

@@ -1,4 +1,11 @@
 en:
+  views:
+    common:
+      show: Details
+      edit: Edit
+      delete: Delete
+      new: Create
+      back_to_books: Back to books
   books:
     index:
       title: Book List
@@ -6,3 +13,4 @@ en:
       title: New Book
     edit:
       title: Editing Book
+      back_to_details: Back to details
