@@ -5,6 +5,8 @@
 <br>
 
 <div>
-  <%= link_to t('.back_to_details'), @book %> |
-  <%= link_to t('views.common.back_to_books'), books_path %>
+  <nav class="page-nav">
+    <%= link_to t('.back_to_details'), @book %> |
+    <%= link_to t('views.common.back_to_books'), books_path %>
+  </nav>
 </div>
