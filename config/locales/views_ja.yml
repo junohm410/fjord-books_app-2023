@@ -2,3 +2,7 @@ ja:
   books:
     index:
       title: 書籍一覧
+    new:
+      title: 本の追加
+    edit:
+      title: 本の編集

@@ -2,3 +2,7 @@ en:
   books:
     index:
       title: Book List
+    new:
+      title: New Book
+    edit:
+      title: Editing Book
