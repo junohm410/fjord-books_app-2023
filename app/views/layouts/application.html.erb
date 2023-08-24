@@ -11,17 +11,12 @@
   </head>
 
   <body class="<%= params[:action] %>">
-    <p>
       <% if user_signed_in? %>
-        Logged in as <strong><%= current_user.email %></strong>.
-        <%= link_to 'User List', users_path %> |
-        <%= link_to 'Edit profile', edit_user_registration_path %> |
-        <%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete } %>
-      <% else %>
-        <%= link_to 'Sign up', new_user_registration_path %> |
-        <%= link_to 'Login', new_user_session_path %>
+        <p><%= t('devise.common.logged_in_as', name: current_user.email) %></p>
+        <%= link_to t('views.common.title_index', name: i18n_pluralize(User.model_name.human)), users_path %> |
+        <%= link_to t('views.common.title_edit',  name: User.model_name.human.downcase), edit_user_registration_path %> |
+        <%= link_to t('devise.common.logout'), destroy_user_session_path, data: { turbo_method: :delete } %>
       <% end %>
-    </p>
     <%= yield %>
   </body>
 </html>
