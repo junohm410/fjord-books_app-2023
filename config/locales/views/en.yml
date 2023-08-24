@@ -1,0 +1,15 @@
+en:
+  views:
+    actions:
+      show: "Details of this %{model}"
+      edit: "Update this %{model}"
+      delete: "Delete this %{model}"
+      new: "Add %{model}"
+      back_to_list: "Back to %{model} list"
+  books:
+    index:
+      title: Book List
+    new:
+      title: Adding Book
+    edit:
+      title: Updating Book

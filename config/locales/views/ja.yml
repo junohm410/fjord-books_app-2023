@@ -1,0 +1,15 @@
+ja:
+  views:
+    actions:
+      show: "%{model}の詳細"
+      edit: "%{model}の更新"
+      delete: "%{model}の削除"
+      new: "%{model}の登録"
+      back_to_list: "%{model}の一覧に戻る"
+  books:
+    index:
+      title: 本の一覧
+    new:
+      title: 本の登録
+    edit:
+      title: 本の更新
