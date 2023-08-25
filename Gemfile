@@ -65,15 +65,16 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 
+  gem 'devise-i18n'
   gem 'erb_lint', require: false
   gem 'faker'
   gem 'i18n_generators'
+  gem 'letter_opener_web'
   # 以下のPRがリリースされたら最新のrubocopを使うようにする
   # https://github.com/fjordllc/rubocop-fjord/pull/16
   gem 'rubocop', '~> 1.45.1', require: false
   gem 'rubocop-fjord', require: false
   gem 'rubocop-rails', require: false
-  gem 'letter_opener_web'
 end
 
 group :test do
@@ -84,5 +85,4 @@ end
 
 gem 'carrierwave'
 gem 'devise'
-gem 'devise-i18n'
 gem 'kaminari'
