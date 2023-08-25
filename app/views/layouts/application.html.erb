@@ -11,12 +11,19 @@
   </head>
 
   <body class="<%= params[:action] %>">
-      <% if user_signed_in? %>
-        <p><%= t('devise.common.logged_in_as', name: current_user.email) %></p>
-        <%= link_to t('views.common.title_index', name: i18n_pluralize(User.model_name.human)), users_path %> |
-        <%= link_to t('views.common.title_edit',  name: User.model_name.human.downcase), edit_user_registration_path %> |
-        <%= link_to t('devise.common.logout'), destroy_user_session_path, data: { turbo_method: :delete } %>
-      <% end %>
+    <% if user_signed_in? %>
+      <p><%= t('devise.common.logged_in_as', name: current_user.email) %></p>
+      <%= link_to t('views.common.title_index', name: i18n_pluralize(User.model_name.human)), users_path %> |
+      <%= link_to t('views.common.title_edit',  name: User.model_name.human.downcase), edit_user_registration_path %> |
+      <%= link_to t('devise.common.logout'), destroy_user_session_path, data: { turbo_method: :delete } %>
+    <% end %>
+
+    <% if notice %>
+      <p class="notice" style="color: green"><%= notice %></p>
+    <% elsif alert %>
+      <p lass="alert" style="color: red"><%= alert %></p>
+    <% end %>
+    
     <%= yield %>
   </body>
 </html>
