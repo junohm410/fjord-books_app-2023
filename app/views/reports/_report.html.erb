@@ -1,5 +1,14 @@
 <div id="<%= dom_id report %>">
   <p>
+    <strong>投稿者:</strong>
+    <% if report.user.name.present? %>
+      <%= report.user.name %>
+    <% else %>
+      <%= report.user.email %>
+    <% end %>
+  </p>
+
+  <p>
     <strong>Title:</strong>
     <%= report.title %>
   </p>
