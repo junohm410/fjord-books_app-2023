@@ -216,3 +216,6 @@ ja:
     registrations:
       edit:
         title: "アカウント編集"
+  reports:
+    common:
+      poster: 投稿者

@@ -1,6 +1,6 @@
 <div id="<%= dom_id report %>">
   <p>
-    <strong>投稿者:</strong>
+    <strong><%= t('reports.common.poster') %>:</strong>
     <% if report.user.name.present? %>
       <%= report.user.name %>
     <% else %>
@@ -9,12 +9,12 @@
   </p>
 
   <p>
-    <strong>Title:</strong>
+    <strong><%= Report.human_attribute_name(:title) %>:</strong>
     <%= report.title %>
   </p>
 
   <p>
-    <strong>Body:</strong>
+    <strong><%= Report.human_attribute_name(:body) %>:</strong>
     <%= report.body %>
   </p>
 
