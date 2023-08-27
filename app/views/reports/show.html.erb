@@ -12,3 +12,22 @@
     <%= button_to t('views.common.destroy', name: Report.model_name.human.downcase), @report, method: :delete %>
   <% end %>
 </div>
+
+<h2>Comments</h2>
+<% @report.comments.each do |comment| %>
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+<% end %>
+
+<h2>Add a comment:</h2>
+<%= form_with model: [ @report, @comment ] do |form| %>
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_area :body, required: true %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
