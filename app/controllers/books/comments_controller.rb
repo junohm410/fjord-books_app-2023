@@ -4,14 +4,14 @@ class Books::CommentsController < ApplicationController
     @comment = @book.comments.build(comment_params)
     @comment.user_id = current_user.id
     @comment.save
-    redirect_to report_path(@book)
+    redirect_to report_path(@book), notice: t('controllers.common.notice_create', name: Comment.model_name.human)
   end
 
   def destroy
     @book = Book.find(params[:book_id])
     @comment = current_user.comments.find(params[:id])
     @comment.destroy
-    redirect_to report_path(@book), status: :see_other
+    redirect_to report_path(@book), notice: t('controllers.common.notice_destroy', name: Comment.model_name.human)
   end
 
   private
