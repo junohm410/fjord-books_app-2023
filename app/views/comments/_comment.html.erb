@@ -1,0 +1,26 @@
+<p>
+  <strong>name:</strong>
+  <% if comment.user.nil? %>
+    退会したユーザー
+  <% elsif comment.user.name.present? %>
+    <%= comment.user.name %>
+  <% else %>
+    <%= comment.user.email %>
+  <% end %>
+</p>
+
+<p>
+  <strong>create_at:</strong>
+  <%= comment.created_at %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= comment.body %>
+</p>
+
+<% if current_user.id == comment.user_id %>
+  <p>
+    <%= link_to "Destroy Comment", [comment.commentable, comment], data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+  </p>
+<% end %>
