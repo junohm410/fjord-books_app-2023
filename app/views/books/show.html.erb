@@ -4,6 +4,45 @@
   <%= render @book %>
 </div>
 
+<h2>Comments</h2>
+<% @book.comments.each do |comment| %>
+  <p>
+    <strong>name:</strong>
+    <% if comment.user.name.present? %>
+      <%= comment.user.name %>
+    <% else %>
+      <%= comment.user.email %>
+    <% end %>
+  </p>
+
+  <p>
+    <strong>create_at:</strong>
+    <%= comment.created_at %>
+  </p>
+  
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+
+  <% if current_user.id == comment.user_id %>
+    <p>
+      <%= link_to "Destroy Comment", [@book, comment], data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    </p>
+  <% end %>
+<% end %>
+
+<h2>Add a comment:</h2>
+<%= form_with model: [ @book, @comment ] do |form| %>
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_area :body, required: true %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+
 <nav class="page-nav">
   <%= link_to t('views.common.edit', name: Book.model_name.human.downcase), edit_book_path(@book) %> |
   <%= link_to t('views.common.back', name: i18n_pluralize(Book.model_name.human.downcase)), books_path %>
