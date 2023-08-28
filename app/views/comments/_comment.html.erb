@@ -1,26 +1,33 @@
-<p>
-  <strong><%= t('comments.common.poster') %>:</strong>
-  <% if comment.user.nil? %>
-    <%= t('views.common.resigned_user') %>
-  <% elsif comment.user.name.present? %>
-    <%= comment.user.name %>
-  <% else %>
-    <%= comment.user.email %>
-  <% end %>
-</p>
+<div id="comments" class="index-items">
+  <div class="index-item">
+    <div id="<%= dom_id comment %>">
+      <p>
+        <strong><%= t('comments.common.poster') %>:</strong>
+        <% if comment.user.nil? %>
+          <%= t('views.common.resigned_user') %>
+        <% elsif comment.user.name.present? %>
+          <%= comment.user.name %>
+        <% else %>
+          <%= comment.user.email %>
+        <% end %>
+      </p>
 
-<p>
-  <strong><%= Comment.human_attribute_name(:created_at) %>:</strong>
-  <%= l comment.created_at, format: :long%>
-</p>
+      <p>
+        <strong><%= Comment.human_attribute_name(:created_at) %>:</strong>
+        <%= l comment.created_at, format: :long%>
+      </p>
 
-<p>
-  <strong><%= Comment.human_attribute_name(:body) %>:</strong>
-  <%= comment.body %>
-</p>
+      <p>
+        <strong><%= Comment.human_attribute_name(:body) %>:</strong>
+        <%= comment.body %>
+      </p>
 
-<% if current_user.id == comment.user_id %>
-  <p>
-    <%= link_to t('views.common.destroy', name: Comment.model_name.human.downcase), [comment.commentable, comment], data: { turbo_method: :delete } %>
-  </p>
-<% end %>
+      <% if current_user.id == comment.user_id %>
+        <p>
+          <%= link_to t('views.common.destroy', name: Comment.model_name.human.downcase), [comment.commentable, comment], data: { turbo_method: :delete } %>
+        </p>
+      <% end %>
+
+    </div>
+  </div>
+</div>

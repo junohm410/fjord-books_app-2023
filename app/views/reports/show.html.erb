@@ -1,8 +1,10 @@
 <h1><%= t('views.common.title_show', name: Report.model_name.human) %></h1>
 
-<%= render @report %>
+<div class="show-item">
+  <%= render @report %>
+</div>
 
-<div>
+<nav class="page-nav">
   <% if current_user.id == @report.user_id %>
     <%= link_to t('views.common.edit', name: Report.model_name.human.downcase), edit_report_path(@report) %> |
   <% end %>
@@ -11,7 +13,7 @@
   <% if current_user.id == @report.user_id %>
     <%= button_to t('views.common.destroy', name: Report.model_name.human.downcase), @report, method: :delete %>
   <% end %>
-</div>
+</nav>
 
 <h2><%= t('views.common.title_index', name: i18n_pluralize(Comment.model_name.human)) %></h2>
 <%= render @report.comments.includes(:user) %>
