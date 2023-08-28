@@ -17,7 +17,9 @@
 <% @report.comments.each do |comment| %>
   <p>
     <strong>name:</strong>
-    <% if comment.user.name.present? %>
+    <% if comment.user.nil? %>
+      退会したユーザー
+    <% elsif comment.user.name.present? %>
       <%= comment.user.name %>
     <% else %>
       <%= comment.user.email %>
