@@ -1,24 +1,13 @@
 # frozen_string_literal: true
 
-class Reports::CommentsController < ApplicationController
+class Reports::CommentsController < CommentsController
   def create
-    @report = Report.find(params[:report_id])
-    @comment = @report.comments.build(comment_params)
-    @comment.user_id = current_user.id
-    @comment.save
-    redirect_to report_path(@report), notice: t('controllers.common.notice_create', name: Comment.model_name.human)
+    @commentable = Report.find(params[:report_id])
+    super
   end
 
   def destroy
-    @report = Report.find(params[:report_id])
-    @comment = current_user.comments.find(params[:id])
-    @comment.destroy
-    redirect_to report_path(@report), notice: t('controllers.common.notice_destroy', name: Comment.model_name.human)
-  end
-
-  private
-
-  def comment_params
-    params.require(:comment).permit(:body)
+    @commentable = Report.find(params[:report_id])
+    super
   end
 end
