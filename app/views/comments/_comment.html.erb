@@ -5,10 +5,8 @@
         <strong><%= t('comments.common.poster') %>:</strong>
         <% if comment.user.nil? %>
           <%= t('views.common.resigned_user') %>
-        <% elsif comment.user.name.present? %>
-          <%= comment.user.name %>
         <% else %>
-          <%= comment.user.email %>
+          <%= current_user_name(comment.user) %>
         <% end %>
       </p>
 
