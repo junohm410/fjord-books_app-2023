@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
 
   # GET /reports or /reports.json
   def index
-    @reports = Report.includes(:user)
+    @reports = Report.includes(:user).order(:id).page(params[:page])
   end
 
   # GET /reports/1 or /reports/1.json
