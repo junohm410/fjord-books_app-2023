@@ -1,0 +1,2 @@
+class ReportMentionRelationship < ApplicationRecord
+end
