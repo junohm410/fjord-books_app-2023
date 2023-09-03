@@ -6,6 +6,13 @@
 
 <%= render 'shared/comments', commentable: @report %>
 
+<p><%= t('.mention_relationships') %></p>
+<% @report.mentioned_reports.each do |report| %>
+  <ul>
+    <li><%= link_to report.user.name, report.user %> / <%= sanitize(t('.mentioned_by', report: link_to(report.title, report))) %></li>
+  </ul>
+<% end %>
+
 <nav class="page-nav">
   <% if @report.editable?(current_user) %>
     <%= link_to t('views.common.edit', name: Report.model_name.human.downcase), edit_report_path(@report) %> |
