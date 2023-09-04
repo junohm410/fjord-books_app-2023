@@ -11,7 +11,6 @@ class ReportsController < ApplicationController
   # GET /reports/1 or /reports/1.json
   def show
     @report = Report.find(params[:id])
-    @comment = Comment.new
   end
 
   # GET /reports/new
