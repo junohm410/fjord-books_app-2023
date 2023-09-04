@@ -1,7 +1,7 @@
 <%= form_with model: [ commentable, Comment.new ] do |form| %>
   <p>
     <%= form.label :body %><br>
-    <%= form.text_area :body, required: true %>
+    <%= form.text_area :body %>
   </p>
   <p>
     <%= form.submit %>

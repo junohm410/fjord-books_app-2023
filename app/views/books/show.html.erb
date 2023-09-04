@@ -1,7 +1,7 @@
 <h1><%= t('views.common.title_show', name: Book.model_name.human) %></h1>
 
 <div class="show-item">
-  <%= render @book %>
+  <%= render 'books/book', book: @book %>
 </div>
 
 <nav class="page-nav">
@@ -13,7 +13,9 @@
 
 <h2><%= t('views.common.title_index', name: i18n_pluralize(Comment.model_name.human)) %></h2>
 <% comments = @book.comments.includes(:user).order(:id).page(params[:page]) %>
-<%= render comments %>
+<% comments.each do |comment| %>
+  <%= render 'comments/comment', comment: comment %>
+<% end %>
 
 <%= paginate comments %>
 

@@ -1,7 +1,7 @@
 <h1><%= t('views.common.title_show', name: Report.model_name.human) %></h1>
 
 <div class="show-item">
-  <%= render @report %>
+  <%= render 'reports/report', report: @report %>
 </div>
 
 <nav class="page-nav">
@@ -17,7 +17,9 @@
 
 <h2><%= t('views.common.title_index', name: i18n_pluralize(Comment.model_name.human)) %></h2>
 <% comments = @report.comments.includes(:user).order(:id).page(params[:page]) %>
-<%= render comments %>
+<% comments.each do |comment| %>
+  <%= render 'comments/comment', comment: comment %>
+<% end %>
 
 <%= paginate comments %>
 
