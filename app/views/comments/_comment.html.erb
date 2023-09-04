@@ -20,7 +20,7 @@
         <%= comment.body %>
       </p>
 
-      <% if current_user.id == comment.user_id %>
+      <% if current_user == comment.user %>
         <p>
           <%= link_to t('views.common.destroy', name: Comment.model_name.human.downcase), [comment.commentable, comment], data: { turbo_method: :delete } %>
         </p>

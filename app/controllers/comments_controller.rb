@@ -3,7 +3,7 @@
 class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.build(comment_params)
-    @comment.user_id = current_user.id
+    @comment.user = current_user
     @comment.save
     redirect_to report_path(@commentable), notice: t('controllers.common.notice_create', name: Comment.model_name.human)
   end
