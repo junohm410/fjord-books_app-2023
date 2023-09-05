@@ -2,13 +2,13 @@
 
 class Report < ApplicationRecord
   include ActionView::Helpers::TranslationHelper
-  REPORT_URI = /http:\/\/localhost:3000\/reports\/(\d+)/
+  REPORT_URI = %r{http://localhost:3000/reports/(\d+)}
 
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
 
-  has_many :mentioning_relationships, class_name: "ReportMentionRelationship", foreign_key: "mentioning_report_id", dependent: :destroy
-  has_many :mentioned_relationships, class_name: "ReportMentionRelationship", foreign_key: "mentioned_report_id", dependent: :destroy
+  has_many :mentioning_relationships, class_name: 'ReportMentionRelationship', inverse_of: :mentioning_report, foreign_key: 'mentioning_report_id', dependent: :destroy
+  has_many :mentioned_relationships, class_name: 'ReportMentionRelationship', inverse_of: :mentioned_report, foreign_key: 'mentioned_report_id', dependent: :destroy
 
   has_many :mentioning_reports, through: :mentioning_relationships, source: :mentioned_report
   has_many :mentioned_reports, through: :mentioned_relationships, source: :mentioning_report
