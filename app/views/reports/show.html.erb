@@ -8,7 +8,7 @@
 
 <% if @report.mentioned_reports.any? %>
   <p><%= t('.mention_relationships') %></p>
-  <% @report.mentioned_reports.each do |report| %>
+  <% @report.mentioned_reports.order(:id).includes(:user).each do |report| %>
     <ul>
       <li><%= link_to report_user_name(report.user), report.user %> / <%= sanitize(t('.mentioned_by', report: link_to(report.title, report))) %></li>
     </ul>
