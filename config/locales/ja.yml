@@ -113,6 +113,8 @@ ja:
     template:
       body: 次の項目を確認してください
       header: "%{model}に%{count}個のエラーが発生しました"
+    mention_relationships:
+      has_errors: 日報の言及に関してエラーが発生しました
   helpers:
     select:
       prompt: 選択してください

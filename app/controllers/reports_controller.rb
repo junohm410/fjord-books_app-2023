@@ -29,9 +29,7 @@ class ReportsController < ApplicationController
   end
 
   def update
-    old_mentioned_report_ids = @report.mentioning_reports.ids
-
-    if @report.update_report_and_mentioning_relationship(old_mentioned_report_ids, report_params)
+    if @report.update_report_and_mentioning_relationship(report_params)
       redirect_to @report, notice: t('controllers.common.notice_update', name: Report.model_name.human)
     else
       render :edit, status: :unprocessable_entity
