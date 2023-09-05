@@ -8,6 +8,6 @@ class User < ApplicationRecord
     attachable.variant :thumb, resize_to_limit: [150, 150]
   end
 
-  has_many :reports, dependent: nil
-  has_many :comments, dependent: nil
+  has_many :reports, dependent: :nullify
+  has_many :comments, dependent: :nullify
 end
