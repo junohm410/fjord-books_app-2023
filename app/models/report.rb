@@ -2,6 +2,7 @@
 
 class Report < ApplicationRecord
   include ActionView::Helpers::TranslationHelper
+  REPORT_URI = /http:\/\/localhost:3000\/reports\/(\d+)/
 
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
@@ -48,7 +49,7 @@ class Report < ApplicationRecord
   end
 
   def search_mentioned_report_ids
-    content.scan(/http:\/\/localhost:3000\/reports\/(\d+)/).flatten.uniq.map(&:to_i)
+    content.scan(REPORT_URI).flatten.uniq.map(&:to_i)
   end
 
   def create_new_mentioning_relationship(mentioned_report_id, report)
