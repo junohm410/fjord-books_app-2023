@@ -196,6 +196,7 @@ ja:
       validation_error: "%{errors}があるため、この%{name}は保存できませんでした"
       title_show: "%{name}の詳細"
       sign_out: ログアウト
+      resigned_user: 退会したユーザー
     pagination:
       first: '« 最初'
       last: '最後 »'
@@ -216,3 +217,9 @@ ja:
     registrations:
       edit:
         title: "アカウント編集"
+  reports:
+    common:
+      poster: 投稿者
+  comments:
+    common:
+      poster: 投稿者

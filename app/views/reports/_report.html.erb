@@ -1,0 +1,26 @@
+<div id="<%= dom_id report %>">
+  <p>
+    <strong><%= t('reports.common.poster') %>:</strong>
+      <% if report.user.nil? %>
+        <%= t('views.common.resigned_user') %>
+      <% else %>
+        <%= current_user_name(report.user) %>
+      <% end %>
+  </p>
+
+  <p>
+    <strong><%= Report.human_attribute_name(:created_at) %>:</strong>
+    <%= l report.created_at, format: :long %>
+  </p>
+
+  <p>
+    <strong><%= Report.human_attribute_name(:title) %>:</strong>
+    <%= report.title %>
+  </p>
+
+  <p>
+    <strong><%= Report.human_attribute_name(:body) %>:</strong>
+    <%= report.body %>
+  </p>
+
+</div>
