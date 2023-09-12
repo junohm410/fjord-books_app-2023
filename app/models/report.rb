@@ -27,10 +27,7 @@ class Report < ApplicationRecord
     transaction do
       raise ActiveRecord::Rollback unless save
 
-      mentioned_report_ids = search_mentioned_report_ids
-      mentioned_report_ids.each do |mentioned_report_id|
-        create_new_mentioning_relationship(mentioned_report_id)
-      end
+      create_new_mentioning_relationship
     end
   end
 
@@ -38,8 +35,8 @@ class Report < ApplicationRecord
     transaction do
       raise ActiveRecord::Rollback unless update(report_params)
 
-      mentioned_report_ids = search_mentioned_report_ids
-      update_mentioning_relationship(mentioned_report_ids)
+      mention_relationships.destroy_all
+      create_new_mentioning_relationship
     end
   end
 
@@ -47,14 +44,10 @@ class Report < ApplicationRecord
     content.scan(REPORT_URI_REGEXP).flatten.uniq.map(&:to_i)
   end
 
-  def create_new_mentioning_relationship(mentioned_report_id)
-    ReportMention.create!(mentioning_report_id: id, mentioned_report_id:)
-  end
-
-  def update_mentioning_relationship(mentioned_report_ids)
-    mention_relationships.delete_all
+  def create_new_mentioning_relationship
+    mentioned_report_ids = search_mentioned_report_ids
     mentioned_report_ids.each do |mentioned_report_id|
-      create_new_mentioning_relationship(mentioned_report_id)
+      ReportMention.create!(mentioning_report_id: id, mentioned_report_id:)
     end
   end
 end
