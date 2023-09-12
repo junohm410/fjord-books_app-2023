@@ -6,11 +6,11 @@ class Report < ApplicationRecord
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
 
-  has_many :mention_relationships, class_name: 'ReportMention', inverse_of: :mentioning_report, foreign_key: 'mentioning_report_id', dependent: :destroy
-  has_many :mentioned_relationships, class_name: 'ReportMention', inverse_of: :mentioned_report, foreign_key: 'mentioned_report_id', dependent: :destroy
+  has_many :mentioning_records, class_name: 'ReportMention', inverse_of: :mentioning_report, foreign_key: 'mentioning_report_id', dependent: :destroy
+  has_many :mentioned_records, class_name: 'ReportMention', inverse_of: :mentioned_report, foreign_key: 'mentioned_report_id', dependent: :destroy
 
-  has_many :mentioning_reports, through: :mention_relationships, source: :mentioned_report
-  has_many :mentioned_reports, through: :mentioned_relationships, source: :mentioning_report
+  has_many :mentioning_reports, through: :mentioning_records, source: :mentioned_report
+  has_many :mentioned_reports, through: :mentioned_records, source: :mentioning_report
 
   validates :title, presence: true
   validates :content, presence: true
@@ -35,7 +35,7 @@ class Report < ApplicationRecord
     transaction do
       raise ActiveRecord::Rollback unless update(report_params)
 
-      mention_relationships.destroy_all
+      mentioning_records.destroy_all
       create_new_mentioning_relationship
     end
   end
