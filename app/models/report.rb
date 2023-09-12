@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Report < ApplicationRecord
-  include ActionView::Helpers::TranslationHelper
-  REPORT_URI = %r{http://localhost:3000/reports/(\d+)}
+  REPORT_URI_REGEXP = %r{http://localhost:3000/reports/(\d+)}
 
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
@@ -49,7 +48,7 @@ class Report < ApplicationRecord
   end
 
   def search_mentioned_report_ids
-    content.scan(REPORT_URI).flatten.uniq.map(&:to_i)
+    content.scan(REPORT_URI_REGEXP).flatten.uniq.map(&:to_i)
   end
 
   def create_new_mentioning_relationship(mentioned_report_id, report)
@@ -57,7 +56,7 @@ class Report < ApplicationRecord
     new_mention_relationship.save
     return if new_mention_relationship.persisted?
 
-    report.errors.add(:base, t('errors.mention_relationships.has_errors'))
+    report.errors.add(:base, I18n.t('errors.mention_relationships.has_errors'))
     raise ActiveRecord::Rollback
   end
 
