@@ -41,7 +41,11 @@ class Report < ApplicationRecord
   end
 
   def search_mentioned_report_ids
-    content.scan(REPORT_URI_REGEXP).flatten.uniq.map(&:to_i)
+    mentioned_report_ids =
+      content.scan(REPORT_URI_REGEXP).flatten.uniq.map do |report_id|
+        report_id.to_i if Report.exists?(report_id)
+      end
+    mentioned_report_ids.compact
   end
 
   def create_new_mentioning_relationship
