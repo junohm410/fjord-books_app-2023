@@ -25,25 +25,21 @@ class Report < ApplicationRecord
 
   def save_report_and_mentioning_relationship
     transaction do
-      save
-      raise ActiveRecord::Rollback unless persisted?
+      raise ActiveRecord::Rollback unless save
 
       mentioned_report_ids = search_mentioned_report_ids
       mentioned_report_ids.each do |mentioned_report_id|
-        create_new_mentioning_relationship(mentioned_report_id, self)
+        create_new_mentioning_relationship(mentioned_report_id)
       end
     end
   end
 
   def update_report_and_mentioning_relationship(report_params)
-    old_mentioned_report_ids = mentioning_reports.ids
-
     transaction do
-      update(report_params)
-      raise ActiveRecord::Rollback unless saved_changes?
+      raise ActiveRecord::Rollback unless update(report_params)
 
-      submitted_mentioned_report_ids = search_mentioned_report_ids
-      update_mentioning_relationship(old_mentioned_report_ids, submitted_mentioned_report_ids, self)
+      mentioned_report_ids = search_mentioned_report_ids
+      update_mentioning_relationship(mentioned_report_ids)
     end
   end
 
@@ -51,30 +47,14 @@ class Report < ApplicationRecord
     content.scan(REPORT_URI_REGEXP).flatten.uniq.map(&:to_i)
   end
 
-  def create_new_mentioning_relationship(mentioned_report_id, report)
-    new_mention_relationship = ReportMention.new(mentioning_report_id: id, mentioned_report_id:)
-    new_mention_relationship.save
-    return if new_mention_relationship.persisted?
-
-    report.errors.add(:base, I18n.t('errors.mention_relationships.has_errors'))
-    raise ActiveRecord::Rollback
+  def create_new_mentioning_relationship(mentioned_report_id)
+    ReportMention.create!(mentioning_report_id: id, mentioned_report_id:)
   end
 
-  def update_mentioning_relationship(old_mentioned_report_ids, submitted_mentioned_report_ids, report)
-    remaining_mentioned_report_ids = old_mentioned_report_ids & submitted_mentioned_report_ids
-    no_longer_mentioned_report_ids = old_mentioned_report_ids - remaining_mentioned_report_ids
-    new_mentioned_report_ids = submitted_mentioned_report_ids - remaining_mentioned_report_ids
-
-    no_longer_mentioned_report_ids.each do |mentioned_report_id|
-      find_mentioning_relationship(mentioned_report_id).destroy!
+  def update_mentioning_relationship(mentioned_report_ids)
+    mention_relationships.delete_all
+    mentioned_report_ids.each do |mentioned_report_id|
+      create_new_mentioning_relationship(mentioned_report_id)
     end
-
-    new_mentioned_report_ids.each do |mentioned_report_id|
-      create_new_mentioning_relationship(mentioned_report_id, report)
-    end
-  end
-
-  def find_mentioning_relationship(mentioned_report_id)
-    ReportMention.find_by(mentioning_report_id: id, mentioned_report_id:)
   end
 end
