@@ -4,18 +4,17 @@ require 'test_helper'
 
 class ReportTest < ActiveSupport::TestCase
   test 'Report#editable? should return true if the report is editable by the report poster' do
-    report = reports(:one)
-    assert report.editable?(users(:alice))
+    report_by_alice = reports(:one)
+    assert report_by_alice.editable?(users(:alice))
   end
 
   test 'Report#editable? should return false if the report is not editable by a person who is not its poster' do
-    report = reports(:one)
-    assert_not report.editable?(users(:bob))
+    report_by_alice = reports(:one)
+    assert_not report_by_alice.editable?(users(:bob))
   end
 
   test 'Report#created_on should return Date object' do
-    report = reports(:one)
-    assert_instance_of Date, report.created_on
+    assert_instance_of Date, reports(:one).created_on
   end
 
   test 'after new mention to some reports are saved by another report, those mentioned reports can refer the mentioning report' do
