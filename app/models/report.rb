@@ -6,11 +6,11 @@ class Report < ApplicationRecord
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
 
-  has_many :mentioning_records, class_name: 'ReportMention', inverse_of: :mentioning_report, foreign_key: 'mentioning_report_id', dependent: :destroy
-  has_many :mentioned_records, class_name: 'ReportMention', inverse_of: :mentioned_report, foreign_key: 'mentioned_report_id', dependent: :destroy
+  has_many :active_mentions, class_name: 'ReportMention', inverse_of: :mentioning_report, foreign_key: 'mentioning_report_id', dependent: :destroy
+  has_many :passive_mentions, class_name: 'ReportMention', inverse_of: :mentioned_report, foreign_key: 'mentioned_report_id', dependent: :destroy
 
-  has_many :mentioning_reports, through: :mentioning_records, source: :mentioned_report
-  has_many :mentioned_reports, through: :mentioned_records, source: :mentioning_report
+  has_many :mentioning_reports, through: :active_mentions, source: :mentioned_report
+  has_many :mentioned_reports, through: :passive_mentions, source: :mentioning_report
 
   validates :title, presence: true
   validates :content, presence: true
@@ -35,23 +35,21 @@ class Report < ApplicationRecord
     transaction do
       raise ActiveRecord::Rollback unless update(report_params)
 
-      mentioning_records.destroy_all
+      active_mentions.destroy_all
       create_new_mentioning_relationship
     end
   end
 
   def search_mentioned_report_ids
-    mentioned_report_ids =
-      content.scan(REPORT_URI_REGEXP).flatten.uniq.map do |report_id|
-        report_id.to_i if Report.exists?(report_id)
-      end
-    mentioned_report_ids.compact
+    content.scan(REPORT_URI_REGEXP).flatten.uniq.filter_map do |report_id|
+      report_id.to_i if Report.exists?(report_id)
+    end
   end
 
   def create_new_mentioning_relationship
     mentioned_report_ids = search_mentioned_report_ids
     mentioned_report_ids.each do |mentioned_report_id|
-      ReportMention.create!(mentioning_report_id: id, mentioned_report_id:)
+      active_mentions.create!(mentioned_report_id:)
     end
   end
 end
