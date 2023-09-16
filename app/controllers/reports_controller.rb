@@ -3,6 +3,11 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[edit update destroy]
 
+  rescue_from ActiveRecord::RecordInvalid do |exception|
+    logger.error(exception.full_message)
+    raise exception.message
+  end
+
   def index
     @reports = Report.includes(:user).order(id: :desc).page(params[:page])
   end
