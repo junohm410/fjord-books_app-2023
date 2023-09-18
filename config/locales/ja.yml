@@ -221,3 +221,7 @@ ja:
     registrations:
       edit:
         title: "アカウント編集"
+  reports:
+    show:
+      mention_relationships: この日報は以下の日報から言及されています
+      mentioned_by: "%{report}から言及"
