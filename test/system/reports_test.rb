@@ -27,8 +27,8 @@ class ReportsTest < ApplicationSystemTestCase
     visit reports_url
     click_on '日報の新規作成'
 
-    fill_in '内容', with: "Day1"
-    fill_in 'タイトル', with: "I do my best"
+    fill_in '内容', with: 'Day1'
+    fill_in 'タイトル', with: 'I do my best'
     click_on '登録する'
 
     assert_text '日報が作成されました。'
@@ -38,8 +38,8 @@ class ReportsTest < ApplicationSystemTestCase
     visit report_url(@report)
     click_on 'この日報を編集'
 
-    fill_in '内容', with: "Modified title"
-    fill_in 'タイトル', with: "Modified content"
+    fill_in '内容', with: 'Modified title'
+    fill_in 'タイトル', with: 'Modified content'
     click_on '更新する'
 
     assert_text '日報が更新されました。'
