@@ -27,8 +27,8 @@ class ReportsTest < ApplicationSystemTestCase
     visit reports_url
     click_on '日報の新規作成'
 
-    fill_in '内容', with: @report.content
-    fill_in 'タイトル', with: @report.title
+    fill_in '内容', with: "Day1"
+    fill_in 'タイトル', with: "I do my best"
     click_on '登録する'
 
     assert_text '日報が作成されました。'
@@ -38,8 +38,8 @@ class ReportsTest < ApplicationSystemTestCase
     visit report_url(@report)
     click_on 'この日報を編集'
 
-    fill_in '内容', with: @report.content
-    fill_in 'タイトル', with: @report.title
+    fill_in '内容', with: "Modified title"
+    fill_in 'タイトル', with: "Modified content"
     click_on '更新する'
 
     assert_text '日報が更新されました。'
@@ -50,5 +50,19 @@ class ReportsTest < ApplicationSystemTestCase
     click_on 'この日報を削除'
 
     assert_text '日報が削除されました。'
+  end
+
+  test 'should not see link to edit Report by others' do
+    report_by_bob = reports(:two_mentioning_report_one)
+    visit report_url(report_by_bob)
+
+    assert_no_link 'この日報を編集'
+  end
+
+  test 'should not see button to delete Report by others' do
+    report_by_bob = reports(:two_mentioning_report_one)
+    visit report_url(report_by_bob)
+
+    assert_no_button 'この日報を削除'
   end
 end
