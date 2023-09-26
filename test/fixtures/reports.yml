@@ -3,13 +3,13 @@
 one:
   id: 1
   user: alice
-  title: MyString
-  content: MyText
+  title: Today I joined!
+  content: Hello!
   created_at: <%= Time.now %>
 
 two_mentioning_report_one:
   id: 2
   user: bob
-  title: MyString
+  title: Found a good report
   content: http://localhost:3000/reports/1
   created_at: <%= Time.now %>

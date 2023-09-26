@@ -27,29 +27,31 @@ class ReportsTest < ApplicationSystemTestCase
     visit reports_url
     click_on '日報の新規作成'
 
-    fill_in '内容', with: 'Day1'
-    fill_in 'タイトル', with: 'I do my best'
+    fill_in 'タイトル', with: 'Day1'
+    fill_in '内容', with: 'I do my best'
     click_on '登録する'
 
-    assert_text '日報が作成されました。'
+    assert_selector 'p', text: 'タイトル: Day1'
+    assert_selector 'p', text: '内容: I do my best'
   end
 
   test 'should update Report' do
     visit report_url(@report)
     click_on 'この日報を編集'
 
-    fill_in '内容', with: 'Modified title'
-    fill_in 'タイトル', with: 'Modified content'
+    fill_in 'タイトル', with: 'Modified title'
+    fill_in '内容', with: 'Modified content'
     click_on '更新する'
 
-    assert_text '日報が更新されました。'
+    assert_selector 'p', text: 'タイトル: Modified title'
+    assert_selector 'p', text: '内容: Modified content'
   end
 
   test 'should destroy Report' do
     visit report_url(@report)
     click_on 'この日報を削除'
 
-    assert_text '日報が削除されました。'
+    assert_no_selector 'p', exact_text: "タイトル: #{@report.title}"
   end
 
   test 'should not see link to edit Report by others' do
