@@ -1,11 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: one
-  title: MyString
-  content: MyText
+  id: 1
+  user: alice
+  title: Today I joined!
+  content: Hello!
+  created_at: <%= Time.now %>
 
-two:
-  user: two
-  title: MyString
-  content: MyText
+two_mentioning_report_one:
+  id: 2
+  user: bob
+  title: Found a good report
+  content: http://localhost:3000/reports/1
+  created_at: <%= Time.now %>
